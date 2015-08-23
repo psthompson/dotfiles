@@ -1,0 +1,16 @@
+Xft.dpi: 115.0
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+!XTerm Colors ---------------------------------------
+XTerm*reverseVideo: off
+XTerm*foreground: white
+XTerm*background: black
+XTerm*transparent: true
+XTerm*color0: rgb:29/28/28
+XTerm*faceName: Terminus:style=Regular:size=11
+XTerm*dynamicColors: true
