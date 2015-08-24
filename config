@@ -21,7 +21,7 @@ set $psst --no-startup-id
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Monoid Regular 12
+font pango:Monspace Regular 12
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -51,7 +51,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec $psst dmenu_run -i -l 35 -p 'Start it...' -fn 'Monospace:size=36' -nb '#1C1D22' -nf '#839496' -sb '#313246' -sf '#E3FDFD`'
+#bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -112,10 +113,10 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # name workspaces
-set $w1 "1: "
-set $w2 "2: "
-set $w3 "3: "
-set $w4 "4: "
+set $w1 "1:  "
+set $w2 "2:  "
+set $w3 "3:  "
+set $w4 "4:  "
 
 # switch to workspace
 bindsym $mod+1 workspace $w1
@@ -174,12 +175,12 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bindsym XF86Search exec --no-startup-id epiphany
+bindsym XF86Search exec $psst epiphany
 
 # audio control
-bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmute
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute
+bindsym XF86AudioMute exec $psst amixer -q set Master toggle
+bindsym XF86AudioLowerVolume exec $psst amixer -q set Master 5%- unmute
+bindsym XF86AudioRaiseVolume exec $psst amixer -q set Master 5%+ unmute
 
 # brightness control
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 20
@@ -215,17 +216,30 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 
+# show CapsLock state in statusbar
+bindsym Caps_Lock mode "Caps"
+bindsym Shift+Caps_Lock mode "Caps"
+bindsym Ctrl+Caps_Lock mode "Caps"
+bindsym $mod+Caps_Lock mode "Caps"
+mode "Caps" {
+        bindsym Caps_Lock mode "default"
+        bindsym Shift+Caps_Lock mode "default"
+        bindsym Ctrl+Caps_Lock mode "default"
+        bindsym $mod+Caps_Lock mode "default"
+}
+
 ###############################################################################
 ##  System bar and color theme
 ###############################################################################
 
 
 bar {
-    # font pango:Cousine, FontAwesome 9
-    font pango:Monoid Regular 12
-    separator_symbol " :|: "
-    position top
-    # status_command i3status -c ~/.i3/i3status.conf
+    #font pango:Cousine, FontAwesome 9
+    font pango:Monospace Regular 13
+    #separator_symbol " :|: "
+    position top    
+    strip_workspace_numbers yes
+    #status_command i3status -c ~/.i3/i3status.conf
     status_command /usr/local/bin/.i3-conky
 
     colors {
@@ -234,7 +248,7 @@ bar {
         separator #DCDCDC
 
         # color class      border  backgr. text
-        focused_workspace  #313246  #313246 #E3FDFD
+        focused_workspace  #313246 #313246 #E3FDFD
         active_workspace   #92A7B2 #92A7B2 #2aa198
         inactive_workspace #1C1D22 #1C1D22 #839496
         urgent_workspace   #800517 #800517 #cb4b16
@@ -243,11 +257,13 @@ bar {
 
 # Border style
 new_window pixel 4
-# new_float pixel 3
-# hide_edge_borders vertical
+#new_window normal
+new_float pixel 3
+hide_edge_borders both
+bindsym $mod+b border toggle
 
 # Global colors
-# type                  border  backgr. font
+# type                  border  backgr. text    ind.
 client.focused          #313246 #313246 #FFFFFF #313246
 client.focused_inactive #92A7B2 #92A7B2 #E4F8FF #92A7B2
 client.unfocused        #1C1D22 #1C1D22 #FFFFFF #1C1D22
@@ -255,21 +271,22 @@ client.urgent           #C84065 #C84065 #FFFFFF #C84065
 
 
 ###############################################################################
-##  Startup apps
+##  Startup
 ###############################################################################
 
-exec --no-startup-id nm-applet                              # network
-# exec --no-startup-id redshift -l 60.3:5.3 -m vidmode      # auto color temperature
-exec --no-startup-id feh --bg-fill ~/Pictures/linebg.png   # wallpaper
-exec --no-startup-id xset dpms 300                          # suspend after 5
-exec --no-startup-id xautolock -time 10 -locker ".fuzzy-lock" &  # lock screen when idle
+#exec $psst nm-applet                                   #network
+#exec $psst redshift -l 60.3:5.3 -m vidmode            #auto color temperature
+exec $psst "xbacklight -set 33"
+exec $psst feh --bg-fill ~/Pictures/linebg.png         #wallpaper
+exec $psst xset dpms 300                               #suspend after 5
+exec $psst xautolock -time 10 -locker ".fuzzy-lock" &  #lock screen when idle
 
 # Restore GNOME's settings
-# exec --no-startup-id /usr/lib/gnome-settings-daemon-localeexec
-# exec --no-startup-id /usr/lib64/gnome-settings-daemon-localeexec
+#exec $psst /usr/lib/gnome-settings-daemon-localeexec
+#exec $psst /usr/lib64/gnome-settings-daemon-localeexec
 
 # Fix a bug in gnome-settings-daemon: http://feeding.cloud.geek.nz/posts/creating-a-modern-tiling-desktop-environment-using-i3/
-# exec --no-startup-id dconf write /org/gnome/settings-daemon/plugins/cursor/active false
+#exec $psst dconf write /org/gnome/settings-daemon/plugins/cursor/active false
 
-exec --no-startup-id /usr/lib/gnome-settings-daemon
-exec --no-startup-id /usr/lib64/gnome-settings-daemon
+exec $psst /usr/lib/gnome-settings-daemon
+exec $psst /usr/lib64/gnome-settings-daemon
