@@ -51,7 +51,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec $psst dmenu_run -i -l 35 -p 'Start it...' -fn 'Monospace:size=36' -nb '#1C1D22' -nf '#839496' -sb '#313246' -sf '#E3FDFD`'
+bindsym $mod+d exec $psst dmenu_run -i -l 35 -p 'Start it...' -fn 'Monospace:size=36' -nb '#1C1D22' -nf '#839496' -sb '#313246' -sf '#E3FDFD'
 #bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -113,10 +113,10 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # name workspaces
-set $w1 "1:  "
-set $w2 "2:  "
-set $w3 "3:  "
-set $w4 "4:  "
+set $w1 "1: 1 "
+set $w2 "2: 2 "
+set $w3 "3: 3 "
+set $w4 "4: 4 "
 
 # switch to workspace
 bindsym $mod+1 workspace $w1
@@ -183,8 +183,8 @@ bindsym XF86AudioLowerVolume exec $psst amixer -q set Master 5%- unmute
 bindsym XF86AudioRaiseVolume exec $psst amixer -q set Master 5%+ unmute
 
 # brightness control
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 20
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 16.6666666666667
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 16.6666666666667
 
 # screenshot
 bindsym Print exec --no-startup-id scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/screenshots/'
@@ -236,37 +236,37 @@ mode "Caps" {
 bar {
     #font pango:Cousine, FontAwesome 9
     font pango:Monospace Regular 13
-    #separator_symbol " :|: "
-    position top    
+    separator_symbol "|"
+    position top
     strip_workspace_numbers yes
-    #status_command i3status -c ~/.i3/i3status.conf
-    status_command /usr/local/bin/.i3-conky
+    status_command i3status --config ~/.i3/i3status.conf
+    #status_command /usr/local/bin/.i3-conky
 
     colors {
-        background #1C1D22
-        statusline #313246
-        separator #DCDCDC
+        background #1C1C23
+        statusline #8AAEB8
+        separator #8AAEB8
 
         # color class      border  backgr. text
-        focused_workspace  #313246 #313246 #E3FDFD
-        active_workspace   #92A7B2 #92A7B2 #2aa198
-        inactive_workspace #1C1D22 #1C1D22 #839496
+        focused_workspace  #1C1C23 #1C1C23 #8AAEB8
+        active_workspace   #92A7B2 #92A7B2 #8AAEB8
+        inactive_workspace #1C1C23 #1C1C23 #313246
         urgent_workspace   #800517 #800517 #cb4b16
     }
 }
 
 # Border style
-new_window pixel 4
+new_window pixel 2
 #new_window normal
-new_float pixel 3
-hide_edge_borders both
+new_float pixel 2
+#hide_edge_borders both
 bindsym $mod+b border toggle
 
 # Global colors
 # type                  border  backgr. text    ind.
-client.focused          #313246 #313246 #FFFFFF #313246
-client.focused_inactive #92A7B2 #92A7B2 #E4F8FF #92A7B2
-client.unfocused        #1C1D22 #1C1D22 #FFFFFF #1C1D22
+client.focused          #313246 #313246 #8AAEB8 #313246
+client.focused_inactive #596D76 #596D76 #8AAEB8 #596D76
+client.unfocused        #1C1C23 #1C1C23 #596D76 #1C1C23
 client.urgent           #C84065 #C84065 #FFFFFF #C84065
 
 
@@ -274,10 +274,11 @@ client.urgent           #C84065 #C84065 #FFFFFF #C84065
 ##  Startup
 ###############################################################################
 
-#exec $psst nm-applet                                   #network
+#exec $psst nm-applet                                  #network
 #exec $psst redshift -l 60.3:5.3 -m vidmode            #auto color temperature
 exec $psst "xbacklight -set 33"
-exec $psst feh --bg-fill ~/Pictures/linebg.png         #wallpaper
+#exec $psst xsetroot -solid "#313246"                   #wallpaper color
+exec $psst feh --bg-fill ~/Pictures/bgdrk.png         #wallpaper image
 exec $psst xset dpms 300                               #suspend after 5
 exec $psst xautolock -time 10 -locker ".fuzzy-lock" &  #lock screen when idle
 
