@@ -1,0 +1,55 @@
+! xrdb -merge .Xresources
+
+
+Xft.dpi: 115.0
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+!XTerm Colors ---------------------------------------
+XTerm*reverseVideo: off
+XTerm*foreground: white
+XTerm*background: black
+XTerm*transparent: true
+XTerm*color0: rgb:29/28/28
+XTerm*faceName: Terminus:style=Regular:size=11
+XTerm*dynamicColors: true
+
+! URxvt Settings ------------------------------------
+
+URxvt*.transparent: true
+! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
+! URxvt*.shading: 99
+
+URxvt.font: xft:Monospace:size=12
+URxvt.termName    : rxvt-256color
+URxvt.iso14755    : false
+
+URxvt.scrollBar: false
+
+! Background color
+URxvt*background: black
+
+! Font color
+URxvt*foreground: gray90
+
+! Other colors
+URxvt*color0: black
+URxvt*color1: red3
+URxvt*color2: green3
+URxvt*color3: yellow3
+URxvt*color4: blue2
+URxvt*color5: magenta3
+URxvt*color6: cyan3
+URxvt*color7: gray90
+URxvt*color8: grey50
+URxvt*color9: red
+URxvt*color10: green
+URxvt*color11: yellow
+URxvt*color12: blue
+URxvt*color13: magenta
+URxvt*color14: cyan
+URxvt*color15: white
