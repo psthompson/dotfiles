@@ -1,0 +1,20 @@
+#!/bin/sh -e
+
+# Dependencies:
+# imagemagick
+# i3lock-color-git
+# scrot
+
+IMAGE=/tmp/i3lock.png
+LOCK=/usr/local/bin/lock.png
+
+# Take a screenshot
+scrot $IMAGE
+
+# Pixellate it 5x and lock screen
+convert $IMAGE -scale 5%, -scale 2000% $IMAGE -fill white -gravity center - | composite -gravity center $LOCK - $IMAGE
+i3lock --textcolor=E84F4F00 --insidecolor=ffffff1c --ringcolor=ffffff3e --linecolor=ffffff00 --keyhlcolor=00000080 --ringvercolor=00000000 --insidevercolor=0000001c --ringwrongcolor=E84F4F55 --insidewrongcolor=E84F4F1c --bshlcolor=E84F4FBB  i3lock -i $IMAGE
+rm $IMAGE
+
+# Turn the screen off after a delay.
+sleep 30; pgrep i3lock && xset dpms force off
